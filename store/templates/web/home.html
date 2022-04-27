@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block page_content %}
-    <a class="btn btn-outline-danger" href="{% url 'dashboard' %}">Go shop</a>
+    <div class="jumbotron-fluid">
+        <img style="width: 100%"
+             src="https://images.unsplash.com/photo-1633464129147-777bdcc97c1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c2hvZXMlMjBzaG9wfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+             alt="">
+        <div class="position-sticky">
+            <h1 class="display-4">Welcome to my Store</h1>
+            <p class="lead">Buy your shoes from here.</p>
+            <hr class="my-4">
+            <div class="flex-row">
 
+                <a class="btn btn-outline-danger" href="{% url 'dashboard' %}">Go shop</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
