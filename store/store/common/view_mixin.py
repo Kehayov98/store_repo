@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import redirect
-
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django import forms
 
 
@@ -29,6 +30,15 @@ class BootstrapFormMixin:
 #     def test_func(self):
 #         return self.request.user.is_staff
 
+class AdminStaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+
+    def test_func(self):
+        # return self.request.user.is_superuser or self.request.user.is_staff
+
+        if self.request.user.groups:
+            return self.request.user.groups.permission_nane
+        else:
+            raise HttpResponse('No')
 
 class DisabledFieldsFormMixin:
     disabled_fields = '__all__'
