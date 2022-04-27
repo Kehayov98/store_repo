@@ -62,7 +62,7 @@ class CartView(auth_mixin.LoginRequiredMixin, views.TemplateView):
 
         return context
 
-
+#this is comment
 class CheckOutView(auth_mixin.LoginRequiredMixin, views.CreateView):
     form_class = CheckOutForm
     template_name = 'cart_and_check_out/check_out.html'
