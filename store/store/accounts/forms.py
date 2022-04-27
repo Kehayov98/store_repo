@@ -3,7 +3,9 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 
 from store.accounts.models import Profile
 from store.common.view_mixin import BootstrapFormMixin
-from store.web.models import Order
+from store.web.models import Order, OrderItems
+
+UserModel = get_user_model()
 
 
 class CreateProfileForm(BootstrapFormMixin, auth_forms.UserCreationForm):
@@ -74,10 +76,9 @@ class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
 class DeleteProfileForm(forms.ModelForm):
     def save(self, commit=True):
         self.instance.delete()
-        # user = get_user_model()
-        # user.delete()
+
         return self.instance
 
     class Meta:
-        model = Profile
+        model = UserModel
         fields = ()

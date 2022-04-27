@@ -1,13 +1,17 @@
 from django import forms
 from django.shortcuts import render
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, get_user_model
 
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+from django.contrib.auth import mixins as auth_mixin
+
 from store.accounts.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
 from store.accounts.models import Profile
 from store.common.view_mixin import RedirectToDashboard
+
+UserModel = get_user_model()
 
 
 class UserRegisterView(RedirectToDashboard, views.CreateView):
@@ -26,7 +30,7 @@ class UserLoginView(auth_views.LoginView):
         return super().get_success_url()
 
 
-class EditProfileView(views.UpdateView):
+class EditProfileView(auth_mixin.LoginRequiredMixin, views.UpdateView):
     model = Profile
     template_name = 'accounts/profile_edit.html'
     form_class = EditProfileForm
@@ -35,7 +39,7 @@ class EditProfileView(views.UpdateView):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
 
 
-class ProfileDetailView(views.DetailView):
+class ProfileDetailView(auth_mixin.LoginRequiredMixin, views.DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
 
@@ -50,8 +54,8 @@ class ProfileDetailView(views.DetailView):
         return context
 
 
-class ProfileDeleteView(views.DeleteView):
-    model = Profile
+class ProfileDeleteView(auth_mixin.LoginRequiredMixin, views.DeleteView):
+    model = UserModel
     template_name = 'accounts/profile_delete.html'
     form_class = DeleteProfileForm
 
