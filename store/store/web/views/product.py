@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
 from django.views import generic as views
 
+# from store.common.view_mixin import StaffRequiredMixin
+from store.common.view_mixin import AdminStaffRequiredMixin
 from store.web.forms import CreateProductFrom, EditProductForm, DeleteProductForm
 from store.web.models import Product, Order
 
@@ -24,7 +26,7 @@ class ProductDetailsView(views.DetailView):
         return context
 
 
-class CreateProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.CreateView):
+class CreateProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin,views.CreateView):
     template_name = 'product/product_create.html'
     form_class = CreateProductFrom
 
@@ -36,10 +38,11 @@ class EditProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequir
     model = Product
     template_name = 'product/product_edit.html'
     form_class = EditProductForm
-    permission_required = ('web.change_product')
 
     def get_success_url(self):
         return reverse_lazy('product details', kwargs={'pk': self.object.pk})
+
+    permission_required = ('web.change_product')
 
 
 class DeleteProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.DeleteView):
@@ -48,5 +51,6 @@ class DeleteProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequ
     template_name = 'product/product_delete.html'
 
     success_url = reverse_lazy('dashboard')
+
     permission_required = ('web.delete_product')
 
