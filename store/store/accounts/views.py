@@ -17,7 +17,11 @@ UserModel = get_user_model()
 class UserRegisterView(RedirectToDashboard, views.CreateView):
     form_class = CreateProfileForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login user')
+    success_url = reverse_lazy('successful register')
+
+
+class SuccessfulRegister(views.TemplateView):
+    template_name = 'accounts/success_register.html'
 
 
 class UserLoginView(auth_views.LoginView):

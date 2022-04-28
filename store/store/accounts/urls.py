@@ -3,12 +3,12 @@ from django.urls import path, reverse_lazy
 from django.views.generic import RedirectView
 
 from store.accounts.views import UserLoginView, UserRegisterView, ProfileDetailView, EditProfileView, ProfileDeleteView, \
-    ChangeUserPasswordView
-
+    ChangeUserPasswordView, SuccessfulRegister
 
 urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login user'),
     path('register/', UserRegisterView.as_view(), name='register'),
+    path('successful_register/', SuccessfulRegister.as_view(), name='successful register'),
     path('logout/', auth_views.LogoutView.as_view(template_name=reverse_lazy('accounts/login user')), name='logout'),
 
     path('chanage_password/<int:pk>/', ChangeUserPasswordView.as_view(), name='change password'),
