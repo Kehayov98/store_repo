@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block page_content %}
+     <div class="jumbotron-fluid">
+        <div class="position-sticky">
+            <h1 class="display-4">About us</h1>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Accusantium adipisci amet architecto culpa ea explicabo fugiat incidunt iure iusto mollitia nisi odio quaerat quasi,
+                quo recusandae similique sint soluta vitae.</p>
+            <hr class="my-4">
+
+            <div class="position-sticky">
+                <h3 class="display-5">Contact us</h3>
+                <p>Email: dsds@abv.bg</p>
+                <p>Phone: +359 434 434 343</p>
+            </div>
+            <div class="flex-row">
+                <a class="btn btn-outline-success" href="{% url 'index' %}">Back to Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

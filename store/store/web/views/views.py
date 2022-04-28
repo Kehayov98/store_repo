@@ -33,5 +33,5 @@ class DashboardView(auth_mixin.LoginRequiredMixin, views.ListView):
         return context
 
 
-
-
+class AboutUs(views.TemplateView):
+    template_name = 'home_and_about_us/about_us.html'

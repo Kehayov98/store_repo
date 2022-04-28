@@ -2,11 +2,13 @@ from django.urls import path
 
 from store.web.views.cart_and_check_out import CartView, CheckOutView, update_item
 from store.web.views.product import CreateProductView, ProductDetailsView, EditProductView, DeleteProductView
-from store.web.views.views import HomeView, DashboardView
+from store.web.views.views import HomeView, DashboardView, AboutUs
 
 urlpatterns = [
     path('', HomeView.as_view(), name='index'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
+
+    path('about_us/', AboutUs.as_view(), name='about us'),
 
     path('cart/', CartView.as_view(), name='cart'),
     path('checkout/', CheckOutView.as_view(), name='check out'),

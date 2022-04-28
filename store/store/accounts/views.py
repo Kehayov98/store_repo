@@ -39,7 +39,7 @@ class EditProfileView(auth_mixin.LoginRequiredMixin, views.UpdateView):
         return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
 
 
-class ChangeUserPasswordView(auth_views.PasswordChangeView):
+class ChangeUserPasswordView(auth_mixin.LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'accounts/change_password.html'
 
 
