@@ -21,6 +21,9 @@
                     <div class="col-lg-6 pb-2">
                         <a href="{% url 'edit profile' request.user.id %}" class="btn btn-success w-100">Edit Profile</a>
                     </div>
+                    <div class="col-lg-6 pb-2">
+                        <a href="{% url 'change password' request.user.id %}" class="btn btn-danger w-100">Change Password</a>
+                    </div>
                     <div class="col-lg-6">
                         <a href="{% url 'delete profile' request.user.id %}" class="btn btn-danger w-100">Delete Profile</a>
                     </div>
