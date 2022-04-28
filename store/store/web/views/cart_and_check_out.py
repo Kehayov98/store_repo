@@ -32,7 +32,7 @@ class CartView(auth_mixin.LoginRequiredMixin, views.TemplateView):
 class CheckOutView(auth_mixin.LoginRequiredMixin, views.CreateView):
     form_class = CheckOutForm
     template_name = 'cart_and_check_out/check_out.html'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('successful check out')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -93,3 +93,7 @@ def update_item(request):
         order_item.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+class SuccessfulCheckOut(views.TemplateView):
+    template_name = 'cart_and_check_out/successful_check_out.html'

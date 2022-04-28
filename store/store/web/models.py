@@ -154,22 +154,22 @@ class ShippingAddress(models.Model):
 
     address = models.CharField(
         max_length=ADDRESS_MAX_LENGTH,
-        null=True,
+        # null=True,
     )
 
     city = models.CharField(
         max_length=CITY_MAX_LENGTH,
-        null=True,
+        # null=True,
     )
 
     state = models.CharField(
         max_length=STATE_MAX_LENGTH,
-        null=True,
+        # null=True,
     )
 
     zipcode = models.CharField(
         max_length=ZIP_CODE_MAX_LENGTH,
-        null=True,
+        # null=True,
     )
 
     date_added = models.DateTimeField(
