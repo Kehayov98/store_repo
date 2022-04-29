@@ -1,13 +1,15 @@
 from datetime import date
-from django.contrib.auth import get_user_model
+
 from django import test as django_test
+from django.contrib.auth import get_user_model
 from django.urls import reverse
+
 from store.accounts.models import Profile
 
 UserModel = get_user_model()
 
 
-class ProfileDetailViewTests(django_test.TestCase):
+class CartViewTest(django_test.TestCase):
     VALID_USER_CREDENTIALS = {
         'username': 'testuser',
         'password': '12345qew',
@@ -24,9 +26,6 @@ class ProfileDetailViewTests(django_test.TestCase):
     def __create_user(self, **credentials):
         return UserModel.objects.create_user(**credentials)
 
-    def __get_response_for_profile(self, profile):
-        return self.client.get(reverse('profile details', kwargs={'pk': profile.pk}))
-
     def __create_valid_user_and_profile(self):
         user = self.__create_user(**self.VALID_USER_CREDENTIALS)
         profile = Profile.objects.create(
@@ -36,32 +35,17 @@ class ProfileDetailViewTests(django_test.TestCase):
 
         return (user, profile)
 
-    def test_when_opening_not_existing_profile__expect_404(self):
+    def test_when_opening_existing_product__expect_200(self):
         _, profile = self.__create_valid_user_and_profile()
         self.client.login(**self.VALID_USER_CREDENTIALS)
 
-        response = self.client.get(reverse('profile details', kwargs={
-            'pk': 2,
-        }))
+        response = self.client.get(reverse('cart'))
 
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(200, response.status_code)
 
     def test_expect_correct_template(self):
         _, profile = self.__create_valid_user_and_profile()
-        self.__get_response_for_profile(profile)
-        self.assertTemplateUsed('accounts/login_page.html')
+        self.client.login(**self.VALID_USER_CREDENTIALS)
+        self.client.get(reverse('cart'))
 
-    def test_when_user_is_not_owner__expect_is_owner_to_be_false(self):
-        _, profile = self.__create_valid_user_and_profile()
-        credentials = {
-            'username': 'testuser2',
-            'password': '12345qwe',
-        }
-
-        self.__create_user(**credentials)
-
-        self.client.login(**credentials)
-
-        response = self.__get_response_for_profile(profile)
-
-        self.assertFalse(response.context['is_owner'])
+        self.assertTemplateUsed('cart_and_check_out/cart.html')
